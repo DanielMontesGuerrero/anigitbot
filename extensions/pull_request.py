@@ -7,12 +7,6 @@ from utils import get_prs_embed, get_pr_embed
 plugin = lightbulb.Plugin('pull_requests')
 
 @plugin.command()
-@lightbulb.command('ping', 'checks that bot is alive')
-@lightbulb.implements(lightbulb.SlashCommand)
-async def ping(ctx: lightbulb.Context) -> None:
-    await ctx.respond('Pong!')
-
-@plugin.command()
 @lightbulb.option('index', 'index of pr to query', default='all')
 @lightbulb.option('state', 'state of pr\'s to query (all, open, closed)', default='open')
 @lightbulb.option('repo', 'name of the repository')

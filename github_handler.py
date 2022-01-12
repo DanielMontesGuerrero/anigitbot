@@ -12,3 +12,8 @@ class GithubHandler:
         repository = self.client.repository(user, repository_name)
         pull_requests = repository.pull_requests(state=state)
         return pull_requests
+
+    def get_pull_request(self, user: str, repository_name: str, number: int) -> PullRequest:
+        repository = self.client.repository(user, repository_name)
+        pull_request = repository.pull_request(number)
+        return pull_request
