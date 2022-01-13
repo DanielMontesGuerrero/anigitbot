@@ -62,6 +62,7 @@ class Handler(BaseHTTPRequestHandler):
     def send_to_discord(self, channel_id: int, embed: Embed):
         url = f'https://discordapp.com/api/v8/channels/{channel_id}/messages'
         payload = {
+            'content': '@everyone',
             'embeds': [self.to_dict(embed)],
         }
         headers = {

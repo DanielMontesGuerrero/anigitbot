@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.bot
+      args:
+        - DISCORD_TOKEN=${DISCORD_TOKEN}
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    restart: always
+
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.server
+      args:
+        - DISCORD_TOKEN=${DISCORD_TOKEN}
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+        - PORT=${PORT}
+    restart: always
+    ports:
+      - "8080:${PORT}"
