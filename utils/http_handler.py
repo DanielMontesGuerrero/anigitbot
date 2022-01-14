@@ -1,7 +1,9 @@
-from http.server import BaseHTTPRequestHandler
 import urllib.parse
 import asyncio
-from anigitbot import Anigitrest
+
+from http.server import BaseHTTPRequestHandler
+from utils.anigitrest import Anigitrest
+
 
 class Handler(BaseHTTPRequestHandler):
     def __init__(self, discord_token, github_token, *args, **kwargs):
@@ -11,7 +13,6 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         data = urllib.parse.parse_qs(self.path[2:])
-        print(data)
         channel_id = int(data['channel_id'][0])
         user = data['user'][0]
         repository_name = data['repo'][0]
@@ -26,4 +27,9 @@ class Handler(BaseHTTPRequestHandler):
     def notify_pull_request(self, channel_id, user, repository_name, pr_number):
         anigitrest = Anigitrest(discord_token=self.discord_token, github_token=self.github_token)
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(anigitrest.notify_pull_request(channel_id, user, repository_name, pr_number))
+        loop.run_until_complete(anigitrest.notify_pull_request(
+            channel_id,
+            user,
+            repository_name,
+            pr_number,
+        ))

@@ -19,4 +19,4 @@ services:
         - PORT=${PORT}
     restart: always
     ports:
-      - "8080:${PORT}"
+      - "${PORT}:${PORT}"

@@ -1,6 +1,8 @@
 import github3
+
 from github3.pulls import PullRequest
 from github3.structs import GitHubIterator
+
 
 class GithubHandler:
     def __init__(self, token: str):

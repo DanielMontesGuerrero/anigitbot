@@ -1,10 +1,9 @@
-from typing import List
 from github3.pulls import PullRequest
 from github3.structs import GitHubIterator
 from hikari.colors import Color
 from hikari.embeds import Embed
+from utils.waifu import get_random_waifu
 
-from waifu import get_random_waifu
 
 def get_prs_embed(pull_requests: GitHubIterator, repository_name: str) -> Embed:
     embed = Embed(

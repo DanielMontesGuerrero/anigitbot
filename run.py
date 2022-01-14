@@ -3,6 +3,7 @@ import os
 
 from anigitbot import Anigitbot
 
+
 def run():
     if len(sys.argv) > 1:
         discord_token = sys.argv[1]

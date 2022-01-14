@@ -1,7 +1,8 @@
-from typing import Dict, List, Tuple
 import requests
 import random
 import json
+
+from typing import Dict, Tuple
 
 
 def get_random_waifu(nsfw: bool = False) -> str:
@@ -16,7 +17,7 @@ def get_random_waifu(nsfw: bool = False) -> str:
     return data['url']
 
 def get_config() -> Tuple[str, Dict]:
-    with open('config.json') as json_file:
+    with open(f'{__file__[:-8]}/config.json') as json_file:
         data = json.load(json_file)
         url = data['url']
         categories = data['categories']

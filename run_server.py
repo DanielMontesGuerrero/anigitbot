@@ -2,7 +2,7 @@ import sys
 import os
 
 from http.server import HTTPServer
-from http_handler import Handler
+from utils.http_handler import Handler
 from functools import partial
 
 
