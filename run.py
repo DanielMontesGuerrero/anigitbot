@@ -1,10 +1,17 @@
 import sys
+import os
 
 from anigitbot import Anigitbot
 
 def run():
-    discord_token = sys.argv[1]
-    github_token = sys.argv[2]
+    if len(sys.argv) > 1:
+        discord_token = sys.argv[1]
+    else:
+        discord_token = os.getenv('DISCORD_TOKEN')
+    if len(sys.argv) > 2:
+        github_token = sys.argv[2]
+    else:
+        github_token = os.getenv('GITHUB_TOKEN')
 
     bot = Anigitbot(discord_token=discord_token, github_token=github_token)
 
