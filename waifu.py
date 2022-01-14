@@ -1,51 +1,11 @@
+from typing import Dict, List, Tuple
 import requests
 import random
+import json
 
-API_URL = 'https://api.waifu.pics'
-
-categories = {
-    'sfw': [
-        'waifu',
-        'neko',
-        'shinobu',
-        'megumin',
-        'bully',
-        'cuddle',
-        'cry',
-        'hug',
-        'awoo',
-        'kiss',
-        'lick',
-        'pat',
-        'smug',
-        'bonk',
-        'yeet',
-        'blush',
-        'smile',
-        'wave',
-        'highfive',
-        'handhold',
-        'nom',
-        'bite',
-        'glomp',
-        'slap',
-        'kill',
-        'kick',
-        'happy',
-        'wink',
-        'poke',
-        'dance',
-        'cringe',
-    ],
-    'nswf': [
-        'waifu',
-        'neko',
-        'trap',
-        'blowjob',
-    ],
-}
 
 def get_random_waifu(nsfw: bool = False) -> str:
+    API_URL, categories = get_config()
     waifu_type = 'sfw'
     if nsfw:
         waifu_type = 'nsfw'
@@ -54,3 +14,10 @@ def get_random_waifu(nsfw: bool = False) -> str:
     res = requests.get(f'{API_URL}/{waifu_type}/{category}')
     data = res.json()
     return data['url']
+
+def get_config() -> Tuple[str, Dict]:
+    with open('config.json') as json_file:
+        data = json.load(json_file)
+        url = data['url']
+        categories = data['categories']
+        return url, categories

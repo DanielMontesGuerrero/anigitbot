@@ -1,7 +1,6 @@
 import re
 from hikari.embeds import Embed
 import lightbulb
-
 from utils import get_prs_embed, get_pr_embed
 
 plugin = lightbulb.Plugin('pull_requests')

@@ -4,7 +4,6 @@ import os
 from http.server import HTTPServer
 from http_handler import Handler
 from functools import partial
-from anigitbot import Anigitbot
 
 
 def run():

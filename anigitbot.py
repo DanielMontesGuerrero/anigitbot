@@ -1,3 +1,4 @@
+from aiohttp import client
 import hikari
 import lightbulb
 
@@ -24,8 +25,7 @@ class Anigitrest(hikari.RESTApp):
         self.discord_token = kwargs['discord_token']
 
     async def notify_pull_request(self, channel_id: int, user: str, repository_name: str, pr_number: int) -> None:
-        async with self.acquire(self.discord_token) as client:
-            print('Notify')
+        async with self.acquire(self.discord_token, token_type='Bot') as client:
             pr = self.github.get_pull_request(user, repository_name, pr_number)
             embed = get_pr_embed(pr)
             await client.create_message(
@@ -33,5 +33,3 @@ class Anigitrest(hikari.RESTApp):
                 embed=embed,
                 content='@everyone',
             )
-
-
