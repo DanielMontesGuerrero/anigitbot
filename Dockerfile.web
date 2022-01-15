@@ -4,8 +4,6 @@ WORKDIR /usr/app
 
 ARG DISCORD_TOKEN
 ARG GITHUB_TOKEN
-ARG PORT
-ENV PORT $PORT
 ENV DISCORD_TOKEN $DISCORD_TOKEN
 ENV GITHUB_TOKEN $GITHUB_TOKEN
 
@@ -15,4 +13,4 @@ RUN pip install -r requirements.txt
 
 COPY ./ ./
 
-CMD python run_server.py ${DISCORD_TOKEN} ${GITHUB_TOKEN} ${PORT}
+CMD python run_server.py ${DISCORD_TOKEN} ${GITHUB_TOKEN}
