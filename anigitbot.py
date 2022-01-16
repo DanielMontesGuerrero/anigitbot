@@ -1,6 +1,6 @@
 import lightbulb
 
-from utils.github_handler import GithubHandler
+from src.github_handler import GithubHandler
 
 
 class Anigitbot(lightbulb.BotApp):

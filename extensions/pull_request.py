@@ -2,7 +2,7 @@ import re
 import lightbulb
 
 from hikari.embeds import Embed
-from utils.utils import get_prs_embed, get_pr_embed
+from src.utils import get_prs_embed, get_pr_embed
 
 
 plugin = lightbulb.Plugin('pull_requests')

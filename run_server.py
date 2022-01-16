@@ -2,7 +2,7 @@ import sys
 import os
 
 from flask import Flask, request
-from utils.anigitrest import Anigitrest
+from src.anigitrest import Anigitrest
 
 
 app = Flask('anigitbot_server')
