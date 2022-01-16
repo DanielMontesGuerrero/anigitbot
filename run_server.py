@@ -12,11 +12,10 @@ async def serve():
     try:
         data = request.args
         discord_token, github_token = config()
-        print(discord_token, github_token)
-        channel_id = int(data.get('channel_id'))
-        user = data.get('user')
-        repository_name = data.get('repo')
-        pr_number = int(data.get('pr'))
+        channel_id = int(data.get('channel_id', ''))
+        user = data.get('user', '')
+        repository_name = data.get('repo', '')
+        pr_number = int(data.get('pr', ''))
         anigitrest = Anigitrest(discord_token=discord_token, github_token=github_token)
         await anigitrest.notify_pull_request(
             channel_id,
