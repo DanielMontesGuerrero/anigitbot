@@ -41,8 +41,14 @@ async def remove(ctx: lightbulb.Context) -> None:
         github_username=ctx.options.git_user,
     ).delete()
     await ctx.respond(
-        f'{ctx.author.mention} will NOT be notified in github @{ctx.options.git_user} mentions anymore',
+        f'{ctx.author.mention} will NOT be notified in github '
+        + f'@{ctx.options.git_user} mentions anymore',
     )
+
+async def on_error(event: lightbulb.CommandErrorEvent) -> None:
+    await event.context.respond('Error handling command :(, check params and try again')
+
+plugin.set_error_handler(on_error)
 
 def load(bot: lightbulb.BotApp):
     bot.add_plugin(plugin)

@@ -37,6 +37,11 @@ async def show_pull_requests(ctx: lightbulb.Context) -> None:
         await ctx.respond(mentions_str)
     await ctx.respond(embed)
 
+async def on_error(event: lightbulb.CommandErrorEvent) -> None:
+    await event.context.respond('Error handling command :(, check params and try again')
+
+plugin.set_error_handler(on_error)
+
 def load(bot: lightbulb.BotApp):
     bot.add_plugin(plugin)
 
