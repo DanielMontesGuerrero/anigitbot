@@ -1,8 +1,11 @@
+from typing import List
 from github3.pulls import PullRequest
 from github3.structs import GitHubIterator
 from hikari.colors import Color
 from hikari.embeds import Embed
 from src.waifu import get_random_waifu
+from src.db.db import session as db_session
+from src.db.models import NotifyList
 
 
 def get_prs_embed(pull_requests: GitHubIterator, repository_name: str) -> Embed:
@@ -44,3 +47,8 @@ def get_color_from_state(state: str) -> Color:
         return Color.of('#42f545')
     else:
         return Color.of('#f54242')
+
+def get_mentions_from_pr(pr: PullRequest) -> List[str]:
+    reviewers = [user.login for user in pr.requested_reviewers]
+    mentions = db_session.query(NotifyList).filter(NotifyList.github_username.in_(reviewers))
+    return [user.mention for user in mentions]
