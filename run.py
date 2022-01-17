@@ -2,6 +2,8 @@ import sys
 import os
 
 from anigitbot import Anigitbot
+from src.db import db
+from src.db.models import User
 
 
 def run():
@@ -20,4 +22,5 @@ def run():
     bot.run()
 
 if __name__ == '__main__':
+    db.Base.metadata.create_all(db.engine)
     run()
