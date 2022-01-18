@@ -1,0 +1,17 @@
+name: Notify
+
+on:
+  issue:
+    types:
+      - opened
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ format('{0}/issue?channel_id={1}&user={2}&repo={3}&pr={4}', secrets.NOTIFY_URL, secrets.CHANNEL_ID, 'DanielMontesGuerrero', 'anigitbot', github.event.number) }}
+          method: 'GET'
+          preventFailureOnNoResponse: 'true'
