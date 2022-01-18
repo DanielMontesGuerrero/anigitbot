@@ -11,4 +11,3 @@ class Anigitbot(lightbulb.BotApp):
             raise   Exception('Missing discord token')
         super().__init__(token=kwargs['discord_token'], prefix='!')
         self.github = GithubHandler(kwargs['github_token'])
-

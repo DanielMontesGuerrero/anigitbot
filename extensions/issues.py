@@ -1,21 +1,21 @@
-import re
 import lightbulb
+import re
 
 from hikari.embeds import Embed
-from src.utils import get_mentions_from, get_prs_embed, get_pr_embed
+from src.utils import get_mentions_from, get_issues_embed, get_issue_embed
 
 
-plugin = lightbulb.Plugin('pull_requests')
+plugin = lightbulb.Plugin('issues')
 
 @plugin.command()
 @lightbulb.option('index', 'index of pr to query', default='all')
-@lightbulb.option('state', 'state of pr\'s to query (all, open, closed)', default='open')
+@lightbulb.option('state', 'state of issues to query (all, open, closed)', default='open')
 @lightbulb.option('repo', 'name of the repository')
 @lightbulb.option('user', 'User owner of the repo')
-@lightbulb.command('pr', 'Returns pull requests of given repository')
+@lightbulb.command('issue', 'Returns issues of given repository')
 @lightbulb.implements(lightbulb.SlashCommand, lightbulb.PrefixCommand)
-async def show_pull_requests(ctx: lightbulb.Context) -> None:
-    pull_requests = ctx.app.github.get_pull_requests(
+async def issue(ctx: lightbulb.Context) -> None:
+    issues = ctx.app.github.get_issues(
         ctx.options.user,
         ctx.options.repo,
         ctx.options.state,
@@ -23,15 +23,15 @@ async def show_pull_requests(ctx: lightbulb.Context) -> None:
     embed = Embed()
     mentions = set()
     if re.match(r'^\d+$', ctx.options.index):
-        for index, pr in enumerate(pull_requests):
+        for index, _issue in enumerate(issues):
             if index == int(ctx.options.index) - 1:
-                embed = get_pr_embed(pr)
-                mentions = get_mentions_from(pr)
+                embed = get_issue_embed(_issue)
+                mentions = get_mentions_from(_issue)
                 break
     else:
-        for pr in pull_requests:
-            mentions.update(get_mentions_from(pr))
-        embed = get_prs_embed(pull_requests, ctx.options.repo)
+        for _issue in issues:
+            mentions.update(get_mentions_from(_issue))
+        embed = get_issues_embed(issues, ctx.options.repo)
     mentions_str = ' '.join(mentions)
     if mentions_str != '':
         await ctx.respond(mentions_str)
