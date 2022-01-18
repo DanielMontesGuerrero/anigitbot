@@ -3,6 +3,8 @@ import os
 
 from flask import Flask, request
 from src.anigitrest import Anigitrest
+from src.db import db
+from src.db.models import NotifyList
 
 
 app = Flask('anigitbot_server')
@@ -39,5 +41,6 @@ def config():
     return discord_token, github_token
 
 if __name__ == '__main__':
+    db.Base.metadata.create_all(db.engine)
     port = int(os.environ.get('PORT', '8000'))
     app.run(host='0.0.0.0', port=port)

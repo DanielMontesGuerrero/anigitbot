@@ -45,6 +45,18 @@ async def remove(ctx: lightbulb.Context) -> None:
         + f'@{ctx.options.git_user} mentions anymore',
     )
 
+@notifyme.child
+@lightbulb.command('list', 'List my subscriptions')
+@lightbulb.implements(lightbulb.SlashSubCommand, lightbulb.PrefixSubCommand)
+async def list(ctx: lightbulb.Context) -> None:
+    mentions = db_session.query(NotifyList).filter_by(
+        discord_username=ctx.author.username,
+    ).all()
+    message = ('You will recieve notifications for the following github users:\n'
+               + '\n'.join([user.github_username for user in mentions])
+               + '\nUse add/remove to change your subscriptions.')
+    await ctx.respond(message)
+
 async def on_error(event: lightbulb.CommandErrorEvent) -> None:
     await event.context.respond('Error handling command :(, check params and try again')
 
