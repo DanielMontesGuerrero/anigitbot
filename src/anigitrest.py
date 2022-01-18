@@ -1,7 +1,7 @@
 import hikari
 
 from src.github_handler import GithubHandler
-from src.utils import get_mentions_from, get_pr_embed
+from src.utils import get_mentions_from, get_pr_embed, get_issue_embed
 
 
 class Anigitrest(hikari.RESTApp):
@@ -25,6 +25,23 @@ class Anigitrest(hikari.RESTApp):
             pr = self.github.get_pull_request(user, repository_name, pr_number)
             embed = get_pr_embed(pr)
             mentions = get_mentions_from(pr)
+            await client.create_message(
+                channel=channel_id,
+                embed=embed,
+                content=' '.join(mentions),
+            )
+
+    async def notify_issue(
+        self,
+        channel_id: int,
+        user: str,
+        repository_name: str,
+        issue_number: int,
+    ) -> None:
+        async with self.acquire(self.discord_token, token_type='Bot') as client:
+            issue = self.github.get_issue(user, repository_name, issue_number)
+            embed = get_issue_embed(issue)
+            mentions = get_mentions_from(issue)
             await client.create_message(
                 channel=channel_id,
                 embed=embed,

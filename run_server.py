@@ -11,6 +11,10 @@ app = Flask('anigitbot_server')
 
 @app.route('/')
 async def serve():
+    return 'Sup bro'
+
+@app.route('/pr')
+async def pull_request():
     try:
         data = request.args
         discord_token, github_token = config()
@@ -20,6 +24,26 @@ async def serve():
         pr_number = int(data.get('pr', ''))
         anigitrest = Anigitrest(discord_token=discord_token, github_token=github_token)
         await anigitrest.notify_pull_request(
+            channel_id,
+            user,
+            repository_name,
+            pr_number,
+        )
+        return 'Success'
+    except KeyError:
+        return 'Missing argumetns'
+
+@app.route('/issue')
+async def issue():
+    try:
+        data = request.args
+        discord_token, github_token = config()
+        channel_id = int(data.get('channel_id', ''))
+        user = data.get('user', '')
+        repository_name = data.get('repo', '')
+        pr_number = int(data.get('issue', ''))
+        anigitrest = Anigitrest(discord_token=discord_token, github_token=github_token)
+        await anigitrest.notify_issue(
             channel_id,
             user,
             repository_name,
