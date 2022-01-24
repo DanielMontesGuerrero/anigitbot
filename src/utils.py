@@ -6,7 +6,7 @@ from hikari.colors import Color
 from hikari.embeds import Embed
 from src.waifu import get_random_waifu
 from src.db.db import session as db_session
-from src.db.models import NotifyList
+from src.db.models import NotifyChannelList, NotifyUserList
 
 
 def get_prs_embed(pull_requests: GitHubIterator, repository_name: str) -> Embed:
@@ -90,5 +90,14 @@ def get_mentions_from(obj: Union[PullRequest, Issue]) -> List[str]:
     else:
         users = obj.assignees
     reviewers = [user.login for user in users]
-    mentions = db_session.query(NotifyList).filter(NotifyList.github_username.in_(reviewers))
+    mentions = db_session.query(NotifyUserList).filter(
+        NotifyUserList.github_username.in_(reviewers),
+    )
     return [user.mention for user in mentions]
+
+def get_channel_list(user: str, repo: str) -> List[int]:
+    notify_list = db_session.query(NotifyChannelList).filter_by(
+        github_username=user,
+        github_repo=repo,
+    ).all()
+    return [notify.discord_channel for notify in notify_list]

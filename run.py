@@ -3,7 +3,7 @@ import os
 
 from anigitbot import Anigitbot
 from src.db import db
-from src.db.models import NotifyList
+from src.db.models import NotifyUserList, NotifyChannelList
 
 
 def run():
