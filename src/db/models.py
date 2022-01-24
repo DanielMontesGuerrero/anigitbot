@@ -1,6 +1,6 @@
 from src.db.db import Base
 
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, BigInteger
 
 
 class NotifyUserList(Base):
@@ -22,7 +22,7 @@ class NotifyUserList(Base):
 class NotifyChannelList(Base):
     __tablename__ = 'notify_channel_list'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     discord_channel = Column(Integer, nullable=False)
     github_username = Column(String, nullable=False)
     github_repo = Column(String, nullable=False)
