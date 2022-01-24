@@ -12,6 +12,6 @@ jobs:
       - name: Notify
         uses: fjogeleit/http-request-action@master
         with:
-          url: ${{ format('{0}/issue?channel_id={1}&user={2}&repo={3}&issue={4}', secrets.NOTIFY_URL, secrets.CHANNEL_ID, 'DanielMontesGuerrero', 'anigitbot', github.event.issue.number) }}
+          url: ${{ format('https://ancient-harbor-41036.herokuapp.com/issue?user={2}&repo={3}&issue={4}', 'DanielMontesGuerrero', 'anigitbot', github.event.issue.number) }}
           method: 'GET'
           preventFailureOnNoResponse: 'true'
