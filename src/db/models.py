@@ -23,7 +23,7 @@ class NotifyChannelList(Base):
     __tablename__ = 'notify_channel_list'
 
     id = Column(Integer, primary_key=True)
-    discord_channel = Column(BigInteger, nullable=False)
+    discord_channel = Column(String, nullable=False)
     github_username = Column(String, nullable=False)
     github_repo = Column(String, nullable=False)
 
