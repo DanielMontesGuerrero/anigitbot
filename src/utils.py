@@ -28,7 +28,7 @@ def get_prs_embed(pull_requests: GitHubIterator, repository_name: str) -> Embed:
 def get_pr_embed(pr: PullRequest) -> Embed:
     embed = Embed(
         title=f'{pr.title}',
-        description=pr.body,
+        description=pr.body_text,
         color=get_color_from_state(pr.state),
         url=pr.html_url,
     )
@@ -62,7 +62,7 @@ def get_issues_embed(issues: GitHubIterator, repository_name: str) -> Embed:
 def get_issue_embed(issue: Issue) -> Embed:
     embed = Embed(
         title=f'{issue.title}',
-        description=issue.body,
+        description=issue.body_text,
         color=get_color_from_state(issue.state),
         url=issue.html_url,
     )
